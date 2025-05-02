@@ -12,17 +12,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest]
         include:
           - os: ubuntu-latest
             output: nx2elf
           - os: windows-latest
             output: x64/Release/nx2elf.exe
-          - os: macos-latest
-            output: nx2elf
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Build on Linux/macOS
       if: matrix.os != 'windows-latest'
@@ -41,7 +39,7 @@ jobs:
         msbuild nx2elf.sln /p:Configuration=Release /p:Platform=x64
     
     - name: Upload build artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: nx2elf-${{ matrix.os }}
         path: ${{ matrix.output }}
@@ -52,16 +50,16 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Download all artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         path: artifacts
     
     - name: Create Release
       id: create_release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         name: Release ${{ github.ref_name }}
         draft: false
