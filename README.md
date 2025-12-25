@@ -1,5 +1,5 @@
 # nx2elf
-Convert Nintendo Switch executable files to ELFs
+Convert Nintendo Switch executable files to ELFs 
 
 # Known Issues
 1. Does not handle 32bit files.
